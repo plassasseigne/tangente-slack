@@ -1,0 +1,16 @@
+{
+  "name": "tangente-bot",
+  "version": "1.0.0",
+  "description": "Slack bot that helps the Digital Cover team",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Lassasseigne",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "dotenv": "^16.4.5",
+    "node-cron": "^3.0.3"
+  }
+}
