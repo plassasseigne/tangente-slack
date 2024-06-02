@@ -2,6 +2,8 @@ const { App } = require('@slack/bolt');
 const dotenv = require('dotenv');
 const pingCommand = require('./commands/pingCommand');
 
+const homeView = require('./views/homeView');
+
 dotenv.config({ 
   path: ['.env.local', '.env'] 
 })
@@ -15,6 +17,8 @@ const app = new App({
 });
 
 pingCommand(app);
+
+homeView(app);
 
 (async () => {
   await app.start();
