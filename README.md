@@ -4,12 +4,16 @@ Tangente est un bot pour la messagerie en direct Slack. Il a pour objectif d'ajo
 
 ## Fonctionnalités
 
-- /ping : commande de débug pour vérifier le délai de requête
+- Page d'accueil customisée
+
+### Commandes
+
+- `/ping` : commande de débug pour vérifier le délai de requête
 
 ## Prérequis
 
 - Node.js (12 ou supérieure)
-- Une application Slack qui possède les permissions ci-dessous
+- Une application Slack qui possède les permissions indiquées ci-dessous
 - Un espace de travail pour inviter le bot
 
 ## Permissions

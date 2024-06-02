@@ -1,5 +1,6 @@
 const { App } = require('@slack/bolt');
 const dotenv = require('dotenv');
+const pingCommand = require('./commands/pingCommand');
 
 dotenv.config({ 
   path: ['.env.local', '.env'] 
@@ -13,6 +14,7 @@ const app = new App({
   port: process.env.PORT || 3000,
 });
 
+pingCommand(app);
 
 (async () => {
   await app.start();
