@@ -9,6 +9,7 @@ Tangente est un bot pour la messagerie en direct Slack de Digital Cover. Il a po
 ### Commandes
 
 - `/ping` : commande de débug pour vérifier le délai de requête
+- `/teammood` : commande pour lancer le formulaire de satisfaction du jour
 
 ## Prérequis
 
