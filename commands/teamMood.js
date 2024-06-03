@@ -2,13 +2,11 @@ module.exports = (app) => {
   let votes = {};
   let commentaries = [];
   let resultMessageTs = null;
-  let voteMessageTs = null;
-  let commentariesMessageTs = null;
+  let commentariesBlock = null;
   let date = null;
-  const teamManagerId = "U06RMUG9W5A";
-  const channel = "C074MA158HK";
+  const channel = "C0770PNQHR6";
 
-  app.command('/teammood', async ({ ack, say, client }) => {
+  app.command('/teammood', async ({ ack, say }) => {
     await ack();
 
     try {
@@ -215,7 +213,7 @@ module.exports = (app) => {
           },
         ],
       });
-      const voteMessage = await say({
+      await say({
         text: "Message du formulaire de vote",
         blocks: [
           {
@@ -242,7 +240,6 @@ module.exports = (app) => {
       });
 
       resultMessageTs = resultMessage.ts;
-      voteMessageTs = voteMessage.ts;
     } catch (error) {
       console.log(error);
     }
@@ -250,6 +247,14 @@ module.exports = (app) => {
 
   app.action('open_modal', async({ ack, body, client }) => {
     await ack();
+
+    let initialValue = null;
+
+    commentaries.forEach((item) => {
+      if (item.user === body.user.id) {
+        initialValue = item.commentary;
+      }
+    });
 
     try {
       await client.views.open({
@@ -340,7 +345,7 @@ module.exports = (app) => {
                 "type": "plain_text_input",
                 "action_id": "commentary_content",
                 "multiline": true,
-                "initial_value": commentaries[body.user.id] ? commentaries[body.user.id] : ''
+                "initial_value": initialValue !== null ? initialValue : ''
               },
               "optional": true
             }
@@ -370,7 +375,9 @@ module.exports = (app) => {
     try {
       if (!votes[user]) {
         votes[user] = feedback;
-        commentaries[user] = commentary;
+        commentaries.push({
+          user: user, commentary: commentary
+        });
         
         feedbackLength = Object.values(votes).length;
         excellentFeedback = Object.values(votes).filter(vote => vote === 'excellent').length;
@@ -378,6 +385,30 @@ module.exports = (app) => {
         normalFeedback = Object.values(votes).filter(vote => vote === 'normal').length;
         hardFeedback = Object.values(votes).filter(vote => vote === 'hard').length;
         badFeedback = Object.values(votes).filter(vote => vote === 'bad').length;
+
+        if (commentaries.length === 0) {
+          commentariesBlock = {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "Pas de commentaire pour le moment"
+              }
+            ]
+          }
+        } else {
+          commentariesBlock = commentaries.map(item => (
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": `${item.commentary}`
+                }
+              ]
+            }
+          ));
+        }
 
         await client.chat.postEphemeral({
           channel,
@@ -567,8 +598,17 @@ module.exports = (app) => {
                     },
                     {
                       "type": "text",
-                      "text": "\nAucun commentaire pour le moment"
+                      "text": "\n"
                     }
+                  ]
+                },
+                {
+                  "type": "rich_text_list",
+                  "style": "bullet",
+                  "indent": 0,
+                  "border": 0,
+                  "elements": [
+                    ...commentariesBlock
                   ]
                 }
               ]
@@ -590,14 +630,49 @@ module.exports = (app) => {
         });
       } else {
         delete votes[user];
+        for (let i = 0; i < commentaries.length; i++) {
+          if (commentaries[i].user === user) {
+            commentaries.splice(i, 1);
+          }
+        }
+
+        console.log(commentaries);
 
         votes[user] = feedback;
+        commentaries.push({
+          user: user, commentary: commentary
+        });
+
         feedbackLength = Object.values(votes).length;
         excellentFeedback = Object.values(votes).filter(vote => vote === 'excellent').length;
         goodFeedback = Object.values(votes).filter(vote => vote === 'good').length;
         normalFeedback = Object.values(votes).filter(vote => vote === 'normal').length;
         hardFeedback = Object.values(votes).filter(vote => vote === 'hard').length;
         badFeedback = Object.values(votes).filter(vote => vote === 'bad').length;
+
+        if (commentaries.length === 0) {
+          commentariesBlock = {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "Pas de commentaire pour le moment"
+              }
+            ]
+          }
+        } else {
+          commentariesBlock = commentaries.map(item => (
+            {
+              "type": "rich_text_section",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": `${item.commentary}`
+                }
+              ]
+            }
+          ));
+        }
   
         await client.chat.postEphemeral({
           channel,
@@ -787,8 +862,17 @@ module.exports = (app) => {
                     },
                     {
                       "type": "text",
-                      "text": "\nAucun commentaire pour le moment"
+                      "text": "\n"
                     }
+                  ]
+                },
+                {
+                  "type": "rich_text_list",
+                  "style": "bullet",
+                  "indent": 0,
+                  "border": 0,
+                  "elements": [
+                    ...commentariesBlock
                   ]
                 }
               ]
