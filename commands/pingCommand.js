@@ -6,4 +6,4 @@ module.exports = (app) => {
 
     await say(`Pong <@${command.user_name}> ! Le délai est de ${start - end} ms.`);
   });
-};
+}
