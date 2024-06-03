@@ -1,15 +1,19 @@
 # Tangente Slack Bot
 
-Tangente est un bot pour la messagerie en direct Slack. Il a pour objectif d'ajouter quelques fonctionnalités pour aider l'équipe dans son quotidien. Il a été développé avec le framework [Bolt Js](https://slack.dev/bolt-js/concepts).
+Tangente est un bot pour la messagerie en direct Slack de Digital Cover. Il a pour objectif d'ajouter quelques fonctionnalités afin d'aider l'équipe dans son quotidien. Il a été développé avec le framework [Bolt Js](https://slack.dev/bolt-js/concepts).
 
 ## Fonctionnalités
 
-- /ping : commande de débug pour vérifier le délai de requête
+- Page d'accueil customisée
+
+### Commandes
+
+- `/ping` : commande de débug pour vérifier le délai de requête
 
 ## Prérequis
 
 - Node.js (12 ou supérieure)
-- Une application Slack qui possède les permissions ci-dessous
+- Une application Slack qui possède les permissions indiquées ci-dessous
 - Un espace de travail pour inviter le bot
 
 ## Permissions
