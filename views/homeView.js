@@ -8,7 +8,7 @@ module.exports = (app) => {
           blocks: [
             {
               "type": "image",
-              "image_url": "https://media.discordapp.net/attachments/1047260461416054914/1246122702188839043/bot-background.png?ex=665de0b4&is=665c8f34&hm=85791627d7fefb878e4bfcc51ff817fbdc01d57800e1b50790254d2c820b79f6&=&format=webp&quality=lossless&width=1440&height=422",
+              "image_url": "https://i.ibb.co/FzNmLDz/bot-background.png",
               "alt_text": "Digital Cover banner"
             },
             {
