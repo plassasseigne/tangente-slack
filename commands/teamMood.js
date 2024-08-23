@@ -4,7 +4,7 @@ module.exports = (app) => {
   let resultMessageTs = null;
   let commentariesBlock = null;
   let date = null;
-  const channel = "C0770PNQHR6";
+  const channel = process.env.TEAMMOOD_CHANNEL;
 
   app.command('/teammood', async ({ ack, say }) => {
     await ack();
@@ -375,10 +375,12 @@ module.exports = (app) => {
     try {
       if (!votes[user]) {
         votes[user] = feedback;
-        commentaries.push({
-          user: user, commentary: commentary
-        });
-        
+        if (commentary !== null) {
+          commentaries.push({
+            user: user, commentary: commentary
+          });
+        }
+
         feedbackLength = Object.values(votes).length;
         excellentFeedback = Object.values(votes).filter(vote => vote === 'excellent').length;
         goodFeedback = Object.values(votes).filter(vote => vote === 'good').length;
@@ -635,8 +637,6 @@ module.exports = (app) => {
             commentaries.splice(i, 1);
           }
         }
-
-        console.log(commentaries);
 
         votes[user] = feedback;
         commentaries.push({
