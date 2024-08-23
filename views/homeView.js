@@ -234,15 +234,6 @@ module.exports = (app) => {
                       "elements": [
                         {
                           "type": "text",
-                          "text": "Alexandra Coeurt"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "rich_text_section",
-                      "elements": [
-                        {
-                          "type": "text",
                           "text": "Nathan Soares"
                         }
                       ]
